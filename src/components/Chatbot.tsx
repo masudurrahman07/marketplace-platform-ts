@@ -50,16 +50,15 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
-
-    try {
-      const response = await axios.post(
-        'http://localhost:5000/api/ai/chat',
-        { message: messageText },
-        { 
-          headers: { 'Content-Type': 'application/json' },
-          timeout: 10000 
-        }
-      );
+try {
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000'}/api/ai/chat`,
+    { message: messageText },
+    { 
+      headers: { 'Content-Type': 'application/json' },
+      timeout: 10000 
+    }
+  );
 
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),

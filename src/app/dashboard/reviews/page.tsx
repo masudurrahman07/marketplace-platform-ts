@@ -12,10 +12,10 @@ export default function ReviewsPage() {
   const fetchMyReviews = async () => {
     try {
       const token = document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
-      if (!token) return;
-      const res = await fetch('http://localhost:5000/api/reviews/my', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+     if (!token) return;
+const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000'}/api/reviews/my`, {
+  headers: { Authorization: `Bearer ${token}` }
+});
       const data = await res.json();
       if (data.success) setReviews(data.data);
     } catch (err) {
@@ -38,12 +38,15 @@ export default function ReviewsPage() {
     });
 
     if (result.isConfirmed) {
+
       try {
         const token = document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
-        const res = await fetch(`http://localhost:5000/api/reviews/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000'}/api/reviews/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` }
         });
+        
+
         if (res.ok) {
           setReviews(prev => prev.filter(r => r._id !== id));
           Swal.fire('Deleted!', 'Your review has been removed.', 'success');

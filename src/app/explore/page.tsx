@@ -11,7 +11,8 @@ import Filters from '@/components/Filters';
 import Pagination from '@/components/Pagination';
 import { Product } from '@/types';
 
-const API_BASE = 'http://localhost:5000/api'; 
+const API_BASE = `${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000'}/api`;
+
 const SORT_OPTIONS = [
   { value: '-createdAt', label: 'Newest' },
   { value: 'price', label: 'Price: Low → High' },
