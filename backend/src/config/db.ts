@@ -18,8 +18,7 @@ export const connectDB = async () => {
     const conn = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
-      family: 4,
-      directConnection: true, 
+      family: 4, 
     });
 
     console.log(`✅ MongoDB connected successfully: ${conn.connection.host}`);
@@ -28,7 +27,7 @@ export const connectDB = async () => {
     console.error('⚠️ MongoDB connection error:', error.message);
 
     if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
-      console.log('💡 DNS Issue: your hostnames may be unreachable or SRV lookup blocked.');
+      console.log('💡 DNS Issue: your hostnames may be unreachable.');
       console.log('👉 Keep using the standard URI format without +srv for Render.');
     } else if (error.message.includes('authentication')) {
       console.log('💡 Auth Issue: check your username/password in .env (no quotes!)');
