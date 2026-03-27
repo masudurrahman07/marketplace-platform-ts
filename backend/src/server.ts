@@ -26,7 +26,7 @@ async function startServer() {
     await connectDB();
     console.log('✅ MongoDB connected');
     
-    // Run the seeder
+    
     await seedDemoUsers();
     
   } catch (err: any) {
