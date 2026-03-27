@@ -2,12 +2,12 @@
   "name": "marketplace-backend",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "build": "tsx src/server.ts",
-    "start": "node dist/server.js",
-    "seed": "tsx src/seed.ts"
-  },
+ "scripts": {
+  "dev": "ts-node-dev --respawn src/server.ts",
+  "build": "tsc",
+  "start": "node dist/server.js",
+  "seed": "ts-node src/seed.ts"
+},
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "bcryptjs": "^2.4.3",

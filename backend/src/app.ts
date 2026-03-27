@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import * as admin from 'firebase-admin'; // Added
-import path from 'path'; // Added
+import * as admin from 'firebase-admin'; 
+import path from 'path'; 
 import authRoutes from './modules/auth/auth.routes';
 import itemRoutes from './modules/items/item.routes';
 import reviewRoutes from './modules/reviews/review.routes';
@@ -12,17 +12,20 @@ import aiRoutes from './modules/ai/ai.routes';
 
 const app = express();
 
-
 try {
-  const serviceAccount = require(path.join(__dirname, '../serviceAccountKey.json'));
   if (!admin.apps.length) {
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-    });
-    console.log('✅ Firebase Admin Initialized');
+    if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+      const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+      admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+      console.log('✅ Firebase Admin Initialized');
+    } else {
+      console.warn('⚠️ FIREBASE_SERVICE_ACCOUNT not set, skipping Firebase Admin init');
+    }
   }
 } catch (error) {
-  console.error(' Firebase Admin Init Error:', error);
+  console.error('Firebase Admin Init Error:', error);
 }
 
 
