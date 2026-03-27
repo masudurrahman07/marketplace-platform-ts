@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
  "scripts": {
-  "dev": "ts-node-dev --respawn src/server.ts",
+  "dev": "tsx watch src/server.ts",
   "build": "tsc",
   "start": "node dist/server.js",
-  "seed": "ts-node src/seed.ts"
+  "seed": "tsx src/seed.ts"
 },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

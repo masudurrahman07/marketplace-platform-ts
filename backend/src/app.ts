@@ -11,23 +11,21 @@ import dashboardRoutes from './modules/dashboard/dashboard.routes';
 import aiRoutes from './modules/ai/ai.routes';
 
 const app = express();
+const firebaseServiceAccount = process.env.FIREBASE_SERVICE_ACCOUNT;
 
-try {
+if (firebaseServiceAccount) {
+  const serviceAccount = JSON.parse(firebaseServiceAccount);
+  serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+
   if (!admin.apps.length) {
-    if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-      const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-      });
-      console.log('✅ Firebase Admin Initialized');
-    } else {
-      console.warn('⚠️ FIREBASE_SERVICE_ACCOUNT not set, skipping Firebase Admin init');
-    }
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+    console.log('✅ Firebase Admin Initialized');
   }
-} catch (error) {
-  console.error('Firebase Admin Init Error:', error);
+} else {
+  console.warn('⚠️ FIREBASE_SERVICE_ACCOUNT not found in env');
 }
-
 
 app.use(cors({ 
   origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
