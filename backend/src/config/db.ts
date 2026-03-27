@@ -3,9 +3,7 @@ import mongoose from 'mongoose';
 export const connectDB = async () => {
   const uri = process.env.MONGO_URI;
 
-  if (!uri) {
-    throw new Error('MONGO_URI is not defined in .env');
-  }
+  if (!uri) throw new Error('MONGO_URI is not defined in .env');
 
   if (mongoose.connection.readyState === 1) {
     console.log('✅ MongoDB already connected');
@@ -26,11 +24,10 @@ export const connectDB = async () => {
   } catch (error: any) {
     console.error('⚠️ MongoDB connection error:', error.message);
 
-    if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
-      console.log('💡 DNS Issue: your hostnames may be unreachable.');
-      console.log('👉 Keep using the standard URI format without +srv for Render.');
-    } else if (error.message.includes('authentication')) {
-      console.log('💡 Auth Issue: check your username/password in .env (no quotes!)');
+    if (error.message.includes('authentication')) {
+      console.log('💡 Auth Issue: Check your username/password in .env (no quotes!)');
+    } else if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
+      console.log('💡 DNS or IP Issue: Whitelist your IP in Atlas or use non-SRV URI');
     }
 
     throw error;
