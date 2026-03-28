@@ -48,6 +48,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/ai', aiRoutes);
 
+app.get('/', (req, res) => {
+  res.json({ message: 'API is running!' });
+});
 
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({ 
