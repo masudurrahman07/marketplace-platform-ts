@@ -70,7 +70,7 @@ export default function LoginPage() {
         photoURL: result.user.photoURL
       };
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/google`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000'}/api/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

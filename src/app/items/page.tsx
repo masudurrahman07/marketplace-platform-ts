@@ -26,7 +26,7 @@ export default function ItemsPage() {
     params.set('page', String(page));
     params.set('limit', String(limit));
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000/api'}/items?${params}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000'}/api/items?${params}`);
       const data = await res.json();
       setProducts(data.data || []);
       setTotal(data.meta?.total || 0);

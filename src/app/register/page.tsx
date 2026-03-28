@@ -22,7 +22,7 @@ export default function RegisterPage() {
     setError('');
     setLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000'}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

@@ -11,7 +11,7 @@ export default function PopularProductsSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000/api'}/items?limit=6&sort=-rating`)
+   fetch(`${process.env.NEXT_PUBLIC_API_URL_TS || 'http://localhost:5000'}/api/items?limit=6&sort=-rating`)
       .then((r) => r.json())
       .then((res) => {
         setProducts(res.data || []);
